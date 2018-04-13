@@ -2,13 +2,12 @@
 ;; mexwm.el
 ;;  Configuration for exwm
 
+(require 'windmove)
 (require 'framemove)
 (require 'exwm)
 (require 'exwm-config)
 (require 'exwm-randr)
 (require 'exwm-systemtray)
-(require 'emojify)
-(require 'windmove)
 
 (defvar mexwm-tmux-session-name "\"0\"")
 
@@ -40,8 +39,8 @@
      (interactive)
      (start-process-shell-command "" nil ,command-and-args)))
 
-(mexwm-define-launcher mexwm-browser "firefox")
-(mexwm-define-launcher mexwm-firefox-private "firefox --private-window")
+(mexwm-define-launcher mexwm-browser (or (getenv "X_BROWSER")
+                                         "firefox"))
 (mexwm-define-launcher mexwm-tmux-shell-here (concat "terminator -e 'tmux new-session -AD -c $HOME -s "
                                                      mexwm-tmux-session-name
                                                      " \\; new-window -c $(pwd) /usr/bin/zsh'"))
@@ -171,7 +170,7 @@ will be inserted into the application."
   (exwm-input-set-key (kbd "s-x s-x") #'execute-extended-command)
 
   ;; Navigation
-  (exwm-input-set-key (kbd "s-<tab>") #'switch-to-last-buffer)
+  (exwm-input-set-key (kbd "s-<tab>") #'personal-switch-to-last-buffer)
   (exwm-input-set-key (kbd "s-<left>") #'mexwm-move-left)
   (exwm-input-set-key (kbd "s-<right>") #'mexwm-move-right)
   (exwm-input-set-key (kbd "s-<up>") #'mexwm-move-up)
@@ -181,7 +180,6 @@ will be inserted into the application."
   (exwm-input-set-key (kbd "s-x e") #'mexwm-insert-emoji)
 
   ;; Apps
-  (exwm-input-set-key (kbd "s-x p i") #'mexwm-firefox-private)
   (exwm-input-set-key (kbd "s-x i") #'mexwm-browser)
   (exwm-input-set-key (kbd "s-x <return>") #'mexwm-tmux-shell-here)
   (exwm-input-set-key (kbd "s-x v") #'mexwm-volume-manager)

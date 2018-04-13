@@ -1,0 +1,11 @@
+[core]
+	editor = emacsclient
+[user]
+	email = mitch.tux@gmail.com
+	name = mitch-kyle
+[push]
+        default = matching
+[mergetool.ediff]
+        cmd = emacsclient --eval \"(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\")\"
+[merge]
+        tool = ediff
