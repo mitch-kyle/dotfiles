@@ -1,0 +1,7 @@
+#!/bin/bash
+
+PRELUDE_GIT_URL='https://github.com/bbatsov/prelude.git'
+
+pushd ~
+git clone "$PRELUDE_GIT_URL" .emacs.d
+popd
