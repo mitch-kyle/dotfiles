@@ -2,12 +2,19 @@
 ;; mexwm.el
 ;;  Configuration for exwm
 
-(require 'windmove)
+(require 'prelude-packages)
+(prelude-require-packages '(windmove
+                            exwm))
 (require 'framemove)
-(require 'exwm)
 (require 'exwm-config)
 (require 'exwm-randr)
 (require 'exwm-systemtray)
+
+;; Dialog boxes do not work with exwm
+(setq use-dialog-box nil)
+(setq display-time-day-and-date t)
+(setq exwm-workspace-show-all-buffers t)
+(setq exwm-layout-show-all-buffers t)
 
 (defvar mexwm-tmux-session-name "\"0\"")
 
@@ -140,6 +147,9 @@ will be inserted into the application."
                exwm-title
              (concat (substring exwm-title 0 49) "...")))))
 
+(add-hook 'exwm-update-class-hook 'mexwm--rename-buffer)
+(add-hook 'exwm-update-title-hook 'mexwm--rename-buffer)
+
 (defun mexwm--xrandr-init ()
   (add-hook 'exwm-randr-screen-change-hook 'mexwm--xrandr-update-outputs)
   (mexwm--xrandr-update-outputs)
@@ -149,72 +159,55 @@ will be inserted into the application."
   (remove-hook 'exwm-randr-screen-change-hook 'mexwm--xrandr-update-outputs)
   (exwm-randr--exit))
 
-;;;###autoload
-(defun mexwm-enable ()
-  "Start exwm"
-  (interactive)
-  (server-start)
-  (exwm-config-ido)
 
-  ;; Dialog boxes do not work with exwm
-  (setq use-dialog-box nil)
-  (setq display-time-day-and-date t)
-  (display-time-mode t)
-  (display-battery-mode t)
+(add-hook 'exwm-init-hook #'mexwm--xrandr-init)
+(add-hook 'exwm-exit-hook #'mexwm--xrandr-exit)
 
-  (exwm-input-set-key (kbd "s-SPC") #'exwm-input-toggle-keyboard)
+(exwm-config-ido)
 
-  ;; Do stuff
-  (exwm-input-set-key (kbd "s-`") #'mexwm-run-sh-async)
-  (exwm-input-set-key (kbd "s-!") #'mexwm-run-tmux)
-  (exwm-input-set-key (kbd "s-x s-x") #'execute-extended-command)
+(exwm-input-set-key (kbd "s-SPC") #'exwm-input-toggle-keyboard)
 
-  ;; Navigation
-  (exwm-input-set-key (kbd "s-<tab>") #'personal-switch-to-last-buffer)
-  (exwm-input-set-key (kbd "s-<left>") #'mexwm-move-left)
-  (exwm-input-set-key (kbd "s-<right>") #'mexwm-move-right)
-  (exwm-input-set-key (kbd "s-<up>") #'mexwm-move-up)
-  (exwm-input-set-key (kbd "s-<down>") #'mexwm-move-down)
+;; Do stuff
+(exwm-input-set-key (kbd "s-`") #'mexwm-run-sh-async)
+(exwm-input-set-key (kbd "s-!") #'mexwm-run-tmux)
+(exwm-input-set-key (kbd "s-x s-x") #'execute-extended-command)
 
-  ;; Features
-  (exwm-input-set-key (kbd "s-x e") #'mexwm-insert-emoji)
+;; Navigation
+(exwm-input-set-key (kbd "s-<tab>") #'personal-switch-to-last-buffer)
+(exwm-input-set-key (kbd "s-<left>") #'mexwm-move-left)
+(exwm-input-set-key (kbd "s-<right>") #'mexwm-move-right)
+(exwm-input-set-key (kbd "s-<up>") #'mexwm-move-up)
+(exwm-input-set-key (kbd "s-<down>") #'mexwm-move-down)
 
-  ;; Apps
-  (exwm-input-set-key (kbd "s-x i") #'mexwm-browser)
-  (exwm-input-set-key (kbd "s-x <return>") #'mexwm-tmux-shell-here)
-  (exwm-input-set-key (kbd "s-x v") #'mexwm-volume-manager)
-  (exwm-input-set-key (kbd "s-x l") #'mexwm-lock)
-  (exwm-input-set-key (kbd "s-<return>") #'mexwm-term)
+;; Features
+(exwm-input-set-key (kbd "s-x e") #'mexwm-insert-emoji)
 
-  (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") #'mexwm-volume-up)
-  (exwm-input-set-key (kbd "<XF86AudioLowerVolume>") #'mexwm-volume-down)
-  (exwm-input-set-key (kbd "<XF86AudioMute>") #'mexwm-mute-toggle)
-  (exwm-input-set-key (kbd "<XF86AudioMicMute>") #'mexwm-mute-mic)
-  (exwm-input-set-key (kbd "<XF86AudioPlay>") #'mexwm-music-toggle)
-  (exwm-input-set-key (kbd "<XF86AudioNext>") #'mexwm-music-next)
-  (exwm-input-set-key (kbd "<XF86AudioPrev>") #'mexwm-music-prev)
-  (exwm-input-set-key (kbd "<XF86Launch1>") #'mexwm-scrot)
-  (exwm-input-set-key (kbd "<XF86ScreenSaver>") #'mexwm-lock)
+;; Apps
+(exwm-input-set-key (kbd "s-x i") #'mexwm-browser)
+(exwm-input-set-key (kbd "s-x <return>") #'mexwm-tmux-shell-here)
+(exwm-input-set-key (kbd "s-x v") #'mexwm-volume-manager)
+(exwm-input-set-key (kbd "s-x l") #'mexwm-lock)
+(exwm-input-set-key (kbd "s-<return>") #'mexwm-term)
 
-  ;; These work in hardware so don't need warning about undefined
-  (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") #'mexwm-no-op)
-  (exwm-input-set-key (kbd "<XF86MonBrightnessUp>") #'mexwm-no-op)
-  (exwm-input-set-key (kbd "<XF86Sleep>") #'mexwm-no-op)
-  (exwm-input-set-key (kbd "<XF86WLAN>") #'mexwm-no-op)
+(exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") #'mexwm-volume-up)
+(exwm-input-set-key (kbd "<XF86AudioLowerVolume>") #'mexwm-volume-down)
+(exwm-input-set-key (kbd "<XF86AudioMute>") #'mexwm-mute-toggle)
+(exwm-input-set-key (kbd "<XF86AudioMicMute>") #'mexwm-mute-mic)
+(exwm-input-set-key (kbd "<XF86AudioPlay>") #'mexwm-music-toggle)
+(exwm-input-set-key (kbd "<XF86AudioNext>") #'mexwm-music-next)
+(exwm-input-set-key (kbd "<XF86AudioPrev>") #'mexwm-music-prev)
+(exwm-input-set-key (kbd "<XF86Launch1>") #'mexwm-scrot)
+(exwm-input-set-key (kbd "<XF86ScreenSaver>") #'mexwm-lock)
 
-  ;; Keybind to send emacs bound keys to x window while in line mode
-  (exwm-input-set-key (kbd "C-q") #'exwm-input-send-next-key)
+;; These work in hardware so don't need warning about undefined
+(exwm-input-set-key (kbd "<XF86MonBrightnessDown>") #'mexwm-no-op)
+(exwm-input-set-key (kbd "<XF86MonBrightnessUp>") #'mexwm-no-op)
+(exwm-input-set-key (kbd "<XF86Sleep>") #'mexwm-no-op)
+(exwm-input-set-key (kbd "<XF86WLAN>") #'mexwm-no-op)
 
-  (setq exwm-workspace-show-all-buffers t)
-  (setq exwm-layout-show-all-buffers t)
+;; Keybind to send emacs bound keys to x window while in line mode
+(exwm-input-set-key (kbd "C-q") #'exwm-input-send-next-key)
 
-  (add-hook 'exwm-update-class-hook 'mexwm--rename-buffer)
-  (add-hook 'exwm-update-title-hook 'mexwm--rename-buffer)
-
-  (add-hook 'exwm-init-hook #'mexwm--xrandr-init)
-  (add-hook 'exwm-exit-hook #'mexwm--xrandr-exit)
-
-  (exwm-systemtray-enable)
-  (exwm-enable))
+(exwm-systemtray-enable)
 
 (provide 'mexwm)

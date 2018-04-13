@@ -7,35 +7,12 @@ export EDITOR="$VISUAL"
 
 export X_BACKGROUND="${X_BACKGROUND:-/usr/share/backgrounds/background.jpg}"
 
-amixer set Mic mute
+pgrep redshift-gtk &> /dev/null || redshift-gtk &
+pgrep oneko &> /dev/null || oneko -tora -fg '#f8f8f2' -bg '#272822' &
+pgrep xcompmgr &> /dev/null || xcompmgr &
 
-supplimentary () {
-    pgrep redshift &> /dev/null || redshift &
-    pgrep oneko &> /dev/null || oneko -tora -fg '#f8f8f2' -bg '#272822' &
-    pgrep xcompmgr &> /dev/null || xcompmgr &
+if [ -f "$X_BACKGROUND" ]; then
+    feh --bg-scale "$X_BACKGROUND"
+fi
 
-    if [ -f "$X_BACKGROUND" ]; then
-        feh --bg-scale "$X_BACKGROUND"
-    fi
-}
-
-default () {
-    supplimentary
-    exec emacs --funcall mexwm-enable
-}
-
-case "$1" in
-    awesome)
-        supplimentary
-        exec awesome
-	;;
-    "")
-        default
-        ;;
-    /etc/X11/Xsession)
-	default
-        ;;
-    *)
-        exec $@
-        ;;
-esac
+exec ${@:-${DEFAULT_X_SESSION:-xterm}}

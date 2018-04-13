@@ -50,6 +50,7 @@
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
+(server-start)
 (cua-mode 1)
 (global-linum-mode 1)
 (menu-bar-mode -1)
@@ -95,31 +96,34 @@
               (name 16 -1)
               " " filename)))
 
-(setq ibuffer-saved-filter-groups
-      (quote (("default"
-               ("Emacs" (or
-                         (name . "^\\*scratch\\*$")
-                         (name . "^\\*Help\\*$")
-                         (name . "^\\*Messages\\*$")
-                         (name . "^\\*Packages\\*$")
-                         (name . "^\\*Compile-Log\\*$")
-                         (name . "^\\*Completions\\*$")
-                         (name . "^\\*Backtrace\\*$")
-                         (name . "^\\*Emojis\\*$")
-                         (name . "^\\*eshell\\*$")
-                         (name . "^\\*terminal\\*$")
-                         (name . "^\\*ansi-term\\*$")))
-               ("AURel" (or (mode . aurel-info-mode)
-                            (mode . aurel-list-mode)
-                            (mode . aurel-revert-tail-mode)))
-               ("Cider" (or (name . "^\\*nrepl-.*\\*$")
-                            (name . "^\\*cider-.*\\*$")))
-               ("IRC" (mode . erc-mode))
-               ("X Windows" (mode . exwm-mode))))))
+(setq ibuffer-show-empty-filter-groups nil)
 
-(add-hook 'ibuffer-mode-hook
-          (lambda ()
-            (ibuffer-switch-to-saved-filter-groups "default")))
+(defun personal-ibuffer-set-filter-groups ()
+  (setq ibuffer-saved-filter-groups
+        (list (cons "default"
+                    (append (ibuffer-projectile-generate-filter-groups)
+                            '(("X Windows" (mode . exwm-mode))
+                              ("IRC" (mode . erc-mode))
+                              ("Cider" (or (name . "^\\*nrepl-.*\\*$")
+                                           (name . "^\\*cider-.*\\*$")))
+                              ("AURel" (or (mode . aurel-info-mode)
+                                           (mode . aurel-list-mode)
+                                           (mode . aurel-revert-tail-mode)))
+                              ("Emacs" (or
+                                        (name . "^\\*scratch\\*$")
+                                        (name . "^\\*Help\\*$")
+                                        (name . "^\\*Messages\\*$")
+                                        (name . "^\\*Packages\\*$")
+                                        (name . "^\\*Compile-Log\\*$")
+                                        (name . "^\\*Completions\\*$")
+                                        (name . "^\\*Backtrace\\*$")
+                                        (name . "^\\*Emojis\\*$")
+                                        (name . "^\\*eshell\\*$")
+                                        (name . "^\\*terminal\\*$")
+                                        (name . "^\\*ansi-term\\*$"))))))))
+  (ibuffer-switch-to-saved-filter-groups "default"))
+
+(add-hook 'ibuffer-mode-hook #'personal-ibuffer-set-filter-groups)
 
 ;; TODO this fails when ediff complains about a buffer already open for a file being merged
 (defun personal-ediff-janitor ()
