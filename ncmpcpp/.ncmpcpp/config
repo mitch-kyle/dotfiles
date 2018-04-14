@@ -18,6 +18,7 @@
 #
 #ncmpcpp_directory = ~/.config/ncmpcpp
 
+mpd_music_dir="~/Music"
 visualizer_fifo_path = "/tmp/ncmpcpp_visualizer.fifo"
 
 #
@@ -445,7 +446,8 @@ progressbar_look = "─⊙ "
 ##
 #
 #locked_screen_width_part = 50
-locked_screen_width_part = 60
+locked_screen_width_part = 40
+
 #
 #ask_for_locked_screen_width_part = yes
 #
