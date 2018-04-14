@@ -1,3 +1,4 @@
 **/*.elc
 mpd/.config/mpd/log
 mpd/.config/mpd/database
+ncmpcpp/.ncmpcpp/error.log
