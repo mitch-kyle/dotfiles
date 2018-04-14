@@ -29,5 +29,4 @@
     show_titlebar = False
     urgent_bell = True
     use_system_font = False
-    use_theme_colors = True
     visible_bell = True

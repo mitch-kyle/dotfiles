@@ -64,6 +64,7 @@
 (mexwm-define-launcher mexwm-music-toggle "mpc toggle")
 (mexwm-define-launcher mexwm-music-next "mpc next")
 (mexwm-define-launcher mexwm-music-prev "mpc prev")
+(mexwm-define-launcher mexwm-music-manager "terminator -e 'ncmpcpp -s playlist -S visualizer'")
 
 ;; windmove with framemove integration
 (defun mexwm--frame-move (dir)
@@ -142,6 +143,7 @@ will be inserted into the application."
 (defun mexwm--rename-buffer ()
   (interactive)
   (exwm-workspace-rename-buffer
+
    (concat exwm-class-name ": "
            (if (<= (length exwm-title) 50)
                exwm-title
@@ -187,6 +189,7 @@ will be inserted into the application."
 (exwm-input-set-key (kbd "s-x <return>") #'mexwm-tmux-shell-here)
 (exwm-input-set-key (kbd "s-x v") #'mexwm-volume-manager)
 (exwm-input-set-key (kbd "s-x l") #'mexwm-lock)
+(exwm-input-set-key (kbd "s-x m") #'mexwm-music-manager)
 (exwm-input-set-key (kbd "s-<return>") #'mexwm-term)
 
 (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") #'mexwm-volume-up)
@@ -208,6 +211,8 @@ will be inserted into the application."
 ;; Keybind to send emacs bound keys to x window while in line mode
 (exwm-input-set-key (kbd "C-q") #'exwm-input-send-next-key)
 
+(display-time-mode t)
+(display-battery-mode t)
 (exwm-systemtray-enable)
 
 (provide 'mexwm)

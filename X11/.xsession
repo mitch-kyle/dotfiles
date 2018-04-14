@@ -15,4 +15,4 @@ if [ -f "$X_BACKGROUND" ]; then
     feh --bg-scale "$X_BACKGROUND"
 fi
 
-exec ${@:-${DEFAULT_X_SESSION:-xterm}}
+exec ${OVERRIDE_X_SESSION:-${@:-${DEFAULT_X_SESSION:-xterm}}}
