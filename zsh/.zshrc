@@ -29,6 +29,7 @@ if [ -f "$OH_MY_ZSH_HOME/oh-my-zsh.sh" ]; then
         emoji
     )
 
+    ZSH_THEME=""
     ZSH_TMUX_FIXTERM=true
     . "$OH_MY_ZSH_HOME/oh-my-zsh.sh"
 
@@ -37,10 +38,10 @@ if [ -f "$OH_MY_ZSH_HOME/oh-my-zsh.sh" ]; then
         less <<< "$(colorize_via_pygmentize $@)"
     }
 
-    . ~/.config/zsh/greyline.zsh-theme
-
     alias c=colorize_via_pygmentize
     alias cl=cless
+
+    . ~/.config/zsh/greyline.zsh-theme
 fi
 
 # Aliases
