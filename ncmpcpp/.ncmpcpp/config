@@ -77,12 +77,6 @@ visualizer_output_name = Visualizer feed
 visualizer_in_stereo = yes
 #
 ##
-## Multiply received samples by given value. Very
-## useful for proper visualization of quiet music.
-##
-visualizer_sample_multiplier = 1
-#
-##
 ## Note: Below parameter defines how often ncmpcpp
 ## has to "synchronize" visualizer and audio outputs.
 ## 30 seconds is optimal value, but if you experience
@@ -107,7 +101,7 @@ visualizer_type = wave_filled
 visualizer_look = "##" # not fancy unicode but it looks nice
 #visualizer_look = "██"
 #
-visualizer_color =   magenta, green, blue, red, yellow, cyan, magenta, green, blue, red, yellow, cyan, magenta, green, blue, red
+visualizer_color = magenta, green, blue, red, yellow, cyan, magenta, green, blue, red, yellow, cyan, magenta, green, blue, red
 #
 ## Alternative subset of 256 colors for terminals that support it.
 ##
@@ -369,7 +363,7 @@ progressbar_look = "█ "
 #
 ## Available values: classic, alternative.
 ##
-#user_interface = classic
+user_interface = alternative
 #
 #data_fetching_delay = yes
 #
@@ -567,10 +561,7 @@ progressbar_elapsed_color = blue
 #statusbar_color = default
 #
 alternative_ui_separator_color = black
-#
-active_column_color = red
-#active_column_color = black
-#
+##
 #window_border_color = green
 window_border_color = blue
 main_window_color = white

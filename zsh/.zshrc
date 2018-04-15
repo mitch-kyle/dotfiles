@@ -64,4 +64,4 @@ alias ustatus='systemctl --user status'
 alias uenable='systemctl --user enable'
 alias udisable='systemctl --user disable'
 
-alias music='ncmpcpp'
+alias music='ncmpcpp -s playlist -S visualizer'
