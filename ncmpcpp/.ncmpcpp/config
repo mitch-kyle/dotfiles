@@ -99,13 +99,15 @@ visualizer_sync_interval = 30
 #
 ## Available values: spectrum, wave, wave_filled, ellipse.
 ##
-visualizer_type = ellipse
+visualizer_type = wave_filled
 #
 #visualizer_look = ●▮
-visualizer_look = "◆│"
+#visualizer_look = "◆│"
 #visualizer_look = "▊▊"
+visualizer_look = "##" # not fancy unicode but it looks nice
+#visualizer_look = "██"
 #
-visualizer_color =  red, blue, green, cyan, yellow, magenta
+visualizer_color =   magenta, green, blue, red, yellow, cyan, magenta, green, blue, red, yellow, cyan, magenta, green, blue, red
 #
 ## Alternative subset of 256 colors for terminals that support it.
 ##
@@ -350,7 +352,8 @@ centered_cursor = yes
 #progressbar_look = "─╼ "
 #progressbar_look = "▊╼ "
 #progressbar_look = "─╼─"
-progressbar_look = "─⊙ "
+#progressbar_look = "─⊙ "
+progressbar_look = "█ "
 #progressbar_look = "◾◾◽"
 #progressbar_look = "▄▄▄"
 #progressbar_look = "▊▊▊"
