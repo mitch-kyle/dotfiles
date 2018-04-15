@@ -19,8 +19,6 @@ if [ -f "$OH_MY_ZSH_HOME/oh-my-zsh.sh" ]; then
         . "$OH_MY_ZSH_HOME/zshrc"
     fi
 
-    ZSH_THEME="bira"
-
     plugins=(
         git
         docker
@@ -38,6 +36,8 @@ if [ -f "$OH_MY_ZSH_HOME/oh-my-zsh.sh" ]; then
     cless () {
         less <<< "$(colorize_via_pygmentize $@)"
     }
+
+    . ~/.config/zsh/greyline.zsh-theme
 
     alias c=colorize_via_pygmentize
     alias cl=cless
