@@ -33,7 +33,8 @@
                             powerline
 			    auto-compile
                             diminish
-                            emojify))
+                            emojify
+                            ibuffer-projectile))
 
 (setq prelude-flyspell nil)
 (setq inhibit-startup-message t) ; Don't want any startup message

@@ -54,7 +54,7 @@
 (mexwm-define-launcher mexwm-term (concat "terminator -e 'tmux new-session -AD -c $HOME -s "
                                           mexwm-tmux-session-name
                                           "'"))
-(mexwm-define-launcher mexwm-volume-manager "terminator --title alsamixer -e alsamixer")
+(mexwm-define-launcher mexwm-volume-manager "terminator --title Volume -e 'pulsemixer || alsamixer'")
 (mexwm-define-launcher mexwm-volume-up "amixer set Master 5%+")
 (mexwm-define-launcher mexwm-volume-down "amixer set Master 5%-")
 (mexwm-define-launcher mexwm-mute-toggle "amixer set Master toggle")
@@ -189,6 +189,8 @@ will be inserted into the application."
 (exwm-input-set-key (kbd "s-x <return>") #'mexwm-tmux-shell-here)
 (exwm-input-set-key (kbd "s-x v") #'mexwm-volume-manager)
 (exwm-input-set-key (kbd "s-x l") #'mexwm-lock)
+(exwm-input-set-key (kbd "s-l") #'mexwm-lock)
+
 (exwm-input-set-key (kbd "s-x m") #'mexwm-music-manager)
 (exwm-input-set-key (kbd "s-<return>") #'mexwm-term)
 
@@ -201,6 +203,9 @@ will be inserted into the application."
 (exwm-input-set-key (kbd "<XF86AudioPrev>") #'mexwm-music-prev)
 (exwm-input-set-key (kbd "<XF86Launch1>") #'mexwm-scrot)
 (exwm-input-set-key (kbd "<XF86ScreenSaver>") #'mexwm-lock)
+(exwm-input-set-key (kbd "<XF86LaunchA>") #'mexwm-music-toggle)
+(exwm-input-set-key (kbd "<XF86Search>") #'mexwm-music-prev)
+(exwm-input-set-key (kbd "<XF86Explorer>") #'mexwm-music-next)
 
 ;; These work in hardware so don't need warning about undefined
 (exwm-input-set-key (kbd "<XF86MonBrightnessDown>") #'mexwm-no-op)
