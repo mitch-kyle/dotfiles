@@ -36,6 +36,7 @@
                             emojify
                             ibuffer-projectile))
 
+(setq switch-to-visible-buffer nil)
 (setq prelude-flyspell nil)
 (setq inhibit-startup-message t) ; Don't want any startup message
 (setq initial-scratch-message nil) ; Don't print a header in the scratch buffer
@@ -46,10 +47,6 @@
 (setq tab-width 4)
 (setq whitespace-line-column 120)
 (setq prelude-guru nil)
-
-(defun personal-switch-to-last-buffer ()
-  (interactive)
-  (switch-to-buffer (other-buffer (current-buffer) 1)))
 
 (server-start)
 (cua-mode 1)
@@ -190,8 +187,13 @@
 
 (global-set-key "\C-l" #'goto-line)
 (global-set-key (kbd "\C-c h") #'replace-string)
-(global-set-key (kbd "M-<tab>") #'ido-imenu-anywhere)
-(global-set-key (kbd "C-<tab>") #'personal-switch-to-last-buffer)
+(global-set-key (kbd "M-q") #'ido-imenu-anywhere)
+(global-set-key (kbd "M-<tab>") #'previous-buffer)
+(global-set-key (kbd "M-<iso-lefttab>") #'next-buffer)
+(global-set-key (kbd "M-<left>") #'previous-buffer)
+(global-set-key (kbd "M-<right>") #'next-buffer)
+(global-set-key (kbd "M-<delete>") #'kill-this-buffer)
+
 (global-set-key (kbd "C-\;") #'comment-or-uncomment-region)
 (global-set-key (kbd "s-e") #'emojify-insert-emoji)
 (global-set-key (kbd "s-p s-p") #'projectile-switch-project)

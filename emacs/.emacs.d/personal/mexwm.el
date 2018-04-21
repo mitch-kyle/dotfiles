@@ -175,7 +175,11 @@ will be inserted into the application."
 (exwm-input-set-key (kbd "s-x s-x") #'execute-extended-command)
 
 ;; Navigation
-(exwm-input-set-key (kbd "s-<tab>") #'personal-switch-to-last-buffer)
+(exwm-input-set-key (kbd "M-<tab>") #'previous-buffer)
+(exwm-input-set-key (kbd "M-<iso-lefttab>") #'next-buffer)
+(exwm-input-set-key (kbd "M-<left>") #'previous-buffer)
+(exwm-input-set-key (kbd "M-<right>") #'next-buffer)
+
 (exwm-input-set-key (kbd "s-<left>") #'mexwm-move-left)
 (exwm-input-set-key (kbd "s-<right>") #'mexwm-move-right)
 (exwm-input-set-key (kbd "s-<up>") #'mexwm-move-up)
