@@ -194,9 +194,12 @@ will be inserted into the application."
 (exwm-input-set-key (kbd "s-x v") #'mexwm-volume-manager)
 (exwm-input-set-key (kbd "s-x l") #'mexwm-lock)
 (exwm-input-set-key (kbd "s-l") #'mexwm-lock)
+(exwm-input-set-key (kbd "s-<return>") #'mexwm-term)
 
 (exwm-input-set-key (kbd "s-x m") #'mexwm-music-manager)
-(exwm-input-set-key (kbd "s-<return>") #'mexwm-term)
+(exwm-input-set-key (kbd "s-x <down>") #'mexwm-music-toggle)
+(exwm-input-set-key (kbd "s-x <left>") #'mexwm-music-prev)
+(exwm-input-set-key (kbd "s-x <right>") #'mexwm-music-next)
 
 (exwm-input-set-key (kbd "<XF86AudioRaiseVolume>") #'mexwm-volume-up)
 (exwm-input-set-key (kbd "<XF86AudioLowerVolume>") #'mexwm-volume-down)
