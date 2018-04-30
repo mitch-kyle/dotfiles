@@ -34,7 +34,8 @@
 			    auto-compile
                             diminish
                             emojify
-                            ibuffer-projectile))
+                            ibuffer-projectile
+                            spaceline))
 
 (setq switch-to-visible-buffer nil)
 (setq prelude-flyspell nil)
@@ -56,6 +57,7 @@
 (scroll-bar-mode -1)
 (window-divider-mode t)
 (global-hl-line-mode -1)
+(spaceline-emacs-theme)
 
 ;; Diminish hides modes from the modeline
 (diminish 'company-mode)
@@ -66,6 +68,7 @@
 (diminish 'which-key-mode)
 (diminish 'whitespace-mode)
 (diminish 'flycheck-mode)
+(diminish 'subword-mode)
 
 (setq auto-compile-display-buffer nil)
 (setq auto-compile-mode-line-counter t)
@@ -96,32 +99,35 @@
 
 (setq ibuffer-show-empty-filter-groups nil)
 
-(defun personal-ibuffer-set-filter-groups ()
-  (setq ibuffer-saved-filter-groups
-        (list (cons "default"
-                    (append (ibuffer-projectile-generate-filter-groups)
-                            '(("X Windows" (mode . exwm-mode))
-                              ("IRC" (mode . erc-mode))
-                              ("Cider" (or (name . "^\\*nrepl-.*\\*$")
-                                           (name . "^\\*cider-.*\\*$")))
-                              ("AURel" (or (mode . aurel-info-mode)
-                                           (mode . aurel-list-mode)
-                                           (mode . aurel-revert-tail-mode)))
-                              ("Emacs" (or
-                                        (name . "^\\*scratch\\*$")
-                                        (name . "^\\*Help\\*$")
-                                        (name . "^\\*Messages\\*$")
-                                        (name . "^\\*Packages\\*$")
-                                        (name . "^\\*Compile-Log\\*$")
-                                        (name . "^\\*Completions\\*$")
-                                        (name . "^\\*Backtrace\\*$")
-                                        (name . "^\\*Emojis\\*$")
-                                        (name . "^\\*eshell\\*$")
-                                        (name . "^\\*terminal\\*$")
-                                        (name . "^\\*ansi-term\\*$"))))))))
-  (ibuffer-switch-to-saved-filter-groups "default"))
-
-(add-hook 'ibuffer-mode-hook #'personal-ibuffer-set-filter-groups)
+(defun personal-ibuffer ()
+  "Open ibuffer with custom filter with projectile integration"
+  (interactive)
+  (ibuffer)
+  (setq ibuffer-filter-groups
+        (append (ibuffer-projectile-generate-filter-groups)
+                '(("X Windows" (mode . exwm-mode))
+                  ("IRC" (mode . erc-mode))
+                  ("Cider" (or (name . "^\\*nrepl-.*\\*$")
+                               (name . "^\\*cider-.*\\*$")))
+                  ("AURel" (or (mode . aurel-info-mode)
+                               (mode . aurel-list-mode)
+                               (mode . aurel-revert-tail-mode)))
+                  ("Emacs" (or
+                            (name . "^\\*scratch\\*$")
+                            (name . "^\\*Help\\*$")
+                            (name . "^\\*Messages\\*$")
+                            (name . "^\\*Packages\\*$")
+                            (name . "^\\*Compile-Log\\*$")
+                            (name . "^\\*Completions\\*$")
+                            (name . "^\\*Backtrace\\*$")
+                            (name . "^\\*Emojis\\*$")
+                            (name . "^\\*eshell\\*$")
+                            (name . "^\\*terminal\\*$")
+                            (name . "^\\*ansi-term\\*$"))))))
+  (let ((ibuf (get-buffer "*Ibuffer*")))
+    (with-current-buffer ibuf
+      (pop-to-buffer ibuf)
+      (ibuffer-update nil t))))
 
 ;; TODO this fails when ediff complains about a buffer already open for a file being merged
 (defun personal-ediff-janitor ()
@@ -193,6 +199,8 @@
 (global-set-key (kbd "M-<left>") #'previous-buffer)
 (global-set-key (kbd "M-<right>") #'next-buffer)
 (global-set-key (kbd "M-<delete>") #'kill-this-buffer)
+(global-set-key (kbd "C-x C-b") #'personal-ibuffer)
+(global-set-key (kbd "C-<delete>") #'kill-buffer-and-window)
 
 (global-set-key (kbd "C-\;") #'comment-or-uncomment-region)
 (global-set-key (kbd "s-e") #'emojify-insert-emoji)
@@ -205,6 +213,7 @@
 (declare cider-show-error-buffer cider-auto-select-error-buffer)
 (eval-after-load 'cider
   '(progn
+     (setq cider-show-error-buffer t)
      (add-hook 'cider-repl-mode-hook #'rainbow-delimiters-mode)
      (add-hook 'cider-repl-mode-hook #'company-mode)
      (add-hook 'cider-mode-hook #'company-mode)))

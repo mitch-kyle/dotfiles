@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 ;; mexwm.el
 ;;  Configuration for exwm
-
 (require 'prelude-packages)
 (prelude-require-packages '(windmove
                             exwm))
@@ -187,6 +186,11 @@ will be inserted into the application."
 
 ;; Features
 (exwm-input-set-key (kbd "s-x e") #'mexwm-insert-emoji)
+
+;; Cheating
+(exwm-input-set-key (kbd "s-x b") #'ido-switch-buffer)
+(exwm-input-set-key (kbd "s-x s-b") #'personal-ibuffer)
+
 
 ;; Apps
 (exwm-input-set-key (kbd "s-x i") #'mexwm-browser)
