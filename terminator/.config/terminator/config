@@ -5,6 +5,7 @@
   title_transmit_bg_color = "#272822"
   title_transmit_fg_color = "#f8f8f2"
 [keybindings]
+  help = <Primary>F1
   paste = <Primary>v
 [layouts]
   [[default]]
