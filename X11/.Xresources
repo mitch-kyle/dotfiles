@@ -37,26 +37,18 @@
 *.color15:      #f9f8f5
 
 !font settings
-*.headingFont:        -xos4-terminus-medium-r-*--12-*-*-*-*-*-*-*
-*.bodyFont:           -xos4-terminus-medium-r-*--12-*-*-*-*-*-*-*
-*.labelFont:          -xos4-terminus-medium-r-*--12-*-*-*-*-*-*-*
-*.unameFont:          -xos4-terminus-medium-r-*--12-*-*-*-*-*-*-*
-*.buttonFont:         -xos4-terminus-medium-r-*--12-*-*-*-*-*-*-*
-*.dateFont:           -xos4-terminus-medium-r-*--12-*-*-*-*-*-*-*
-*.passwdFont:         -xos4-terminus-medium-r-*--12-*-*-*-*-*-*-*
-*.font:               -xos4-terminus-medium-r-*--12-*-*-*-*-*-*-*
+*.headingFont:        -*-terminus-medium-r-*--16-*-*-*-*-*-*-*
+*.bodyFont:           -*-terminus-medium-r-*--16-*-*-*-*-*-*-*
+*.labelFont:          -*-terminus-medium-r-*--16-*-*-*-*-*-*-*
+*.unameFont:          -*-terminus-medium-r-*--16-*-*-*-*-*-*-*
+*.buttonFont:         -*-terminus-medium-r-*--16-*-*-*-*-*-*-*
+*.dateFont:           -*-terminus-medium-r-*--16-*-*-*-*-*-*-*
+*.passwdFont:         -*-terminus-medium-r-*--16-*-*-*-*-*-*-*
+*.font:               -*-terminus-medium-r-*--16-*-*-*-*-*-*-*
 
 ! --
 ! xscreensaver
 ! --
-xscreensaver.Dialog.headingFont:        -*-dina-bold-r-*-*-12-*-*-*-*-*-*-*
-xscreensaver.Dialog.bodyFont:           -*-dina-medium-r-*-*-12-*-*-*-*-*-*-*
-xscreensaver.Dialog.labelFont:          -*-dina-medium-r-*-*-12-*-*-*-*-*-*-*
-xscreensaver.Dialog.unameFont:          -*-dina-medium-r-*-*-12-*-*-*-*-*-*-*
-xscreensaver.Dialog.buttonFont:         -*-dina-bold-r-*-*-12-*-*-*-*-*-*-*
-xscreensaver.Dialog.dateFont:           -*-dina-medium-r-*-*-12-*-*-*-*-*-*-*
-xscreensaver.passwd.passwdFont:         -*-dina-bold-r-*-*-12-*-*-*-*-*-*-*
-
 xscreensaver.newLoginCommand: dm-tool switch-to-greeter
 xscreensaver.Dialog.foreground:         #f8f8f2
 xscreensaver.Dialog.background:         #272822

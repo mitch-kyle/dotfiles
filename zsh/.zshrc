@@ -65,3 +65,6 @@ alias uenable='systemctl --user enable'
 alias udisable='systemctl --user disable'
 
 alias music='ncmpcpp -s playlist -S visualizer'
+
+# emacs vterm
+. ~/.config/zsh/vterm.zsh

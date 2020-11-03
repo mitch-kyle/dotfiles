@@ -2,3 +2,4 @@
 mpd/.config/mpd/log
 mpd/.config/mpd/database
 ncmpcpp/.ncmpcpp/error.log
+gtk/.config/gtk-2.0/gtkfilechooser.ini

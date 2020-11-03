@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 [[ -f ~/.xprofile ]] && . ~/.xprofile
 
@@ -15,4 +15,10 @@ if [ -f "$X_BACKGROUND" ]; then
     feh --bg-scale "$X_BACKGROUND"
 fi
 
-exec ${OVERRIDE_X_SESSION:-${@:-${DEFAULT_X_SESSION:-xterm}}}
+session=${OVERRIDE_X_SESSION:-${@:-${DEFAULT_X_SESSION:-xterm}}}
+
+if [[ $session =~ emacs ]]; then
+    export _JAVA_AWT_WM_NONREPARENTING=1
+fi
+
+exec $session
