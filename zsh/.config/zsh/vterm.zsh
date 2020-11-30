@@ -1,8 +1,6 @@
 # Shell side configuration for emacs vterm
 # See https://github.com/akermu/emacs-libvterm/blob/master/etc/emacs-vterm-zsh.sh
 
-[[ "$INSIDE_EMACS" = "vterm" ]] || return
-
 # Some of the most useful features in emacs-libvterm require shell-side
 # configurations. The main goal of these additional functions is to enable the
 # shell to send information to `vterm` via properly escaped sequences. A

@@ -67,4 +67,6 @@ alias udisable='systemctl --user disable'
 alias music='ncmpcpp -s playlist -S visualizer'
 
 # emacs vterm
-. ~/.config/zsh/vterm.zsh
+if [[ "$INSIDE_EMACS" == "vterm" ]]; then
+    . ~/.config/zsh/vterm.zsh
+fi
